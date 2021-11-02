@@ -34,6 +34,28 @@ const DSCHIEF_12_KOVAN_ADDRESS = '0x27E0c9567729Ea6e3241DE74B3dE499b7ddd3fe6';
 const VOTE_PROXY_FACTORY_12_KOVAN_ADDRESS = "0x1400798AA746457E467A1eb9b3F3f72C25314429";
 const VOTE_DELEGATE_FACTORY_KOVAN_ADDRESS = "0x1740F3bD55b1900C816A0071F8972C201566e3a3";
 
+//velas
+const MKR_VELAS_ADDRESS = "0x7e4D6C2E61412386f4A07268E6Cf22896B2a392d";
+const VOTING_CONTRACT_VELAS_ADDRESS = pollingTransformerImport.VOTING_CONTRACT_VELAS_ADDRESS;
+const SECOND_VOTING_CONTRACT_VELAS_ADDRESS = "0xD931E7c869618dB6FD30cfE4e89248CAA091Ea5f";
+const DSCHIEF_VELAS_ADDRESS = "0xA8008c5F9a0915A51C429544D52d24128fEe0B93";
+const VOTE_PROXY_FACTORY_VELAS_ADDRESS = "0x748e8510562481F591A8b32A1ac86bB414F81162";
+const ESM_ADDRESS_VELAS = "0x63aCA4a3FF50AF881566113552Ac7f87c221C09D";
+const DSCHIEF_12_VELAS_ADDRESS = '0x27E0c9567729Ea6e3241DE74B3dE499b7ddd3fe6';
+const VOTE_PROXY_FACTORY_12_VELAS_ADDRESS = "0x1400798AA746457E467A1eb9b3F3f72C25314429";
+const VOTE_DELEGATE_FACTORY_VELAS_ADDRESS = "0x8B0Df303b9d5d50C5c41dDF8AF76EfD807e76ab1";
+
+//velastestnet
+const MKR_VELASTESTNET_ADDRESS = "0x7809B1861e10c86d02957b776deB23847168e230";
+const VOTING_CONTRACT_VELASTESTNET_ADDRESS = pollingTransformerImport.VOTING_CONTRACT_VELASTESTNET_ADDRESS;
+const SECOND_VOTING_CONTRACT_VELASTESTNET_ADDRESS = "0x279B55B72a3d7ff13BBBc29713397a8687c58C00";
+const DSCHIEF_VELASTESTNET_ADDRESS = "0xD866F0422fa0EC6aCa99e8af8a5FF5DA913A3ccD";
+const VOTE_PROXY_FACTORY_VELASTESTNET_ADDRESS = "0x9E07de2Ac566d4a2d5Ceae843396a6CcD083c799";
+const ESM_ADDRESS_VELASTESTNET = "0x52f827a8975Cd56F82E375cf06291CF8A8029694";
+const DSCHIEF_12_VELASTESTNET_ADDRESS = '0x27E0c9567729Ea6e3241DE74B3dE499b7ddd3fe6';
+const VOTE_PROXY_FACTORY_12_VELASTESTNET_ADDRESS = "0x1400798AA746457E467A1eb9b3F3f72C25314429";
+const VOTE_DELEGATE_FACTORY_VELASTESTNET_ADDRESS = "0x4947BDb54aA272a8d6bEFeef1E0e4755f08FF74F";
+
 
 const kovan = {
   startingBlock: 5216304,
@@ -121,13 +143,113 @@ const mainnet = {
   },
 };
 
+const velas = {
+  startingBlock: 68886,
+  extractors: [
+    ...makeRawLogExtractors([
+      VOTING_CONTRACT_VELAS_ADDRESS,
+      SECOND_VOTING_CONTRACT_VELAS_ADDRESS,
+      MKR_VELAS_ADDRESS,
+      DSCHIEF_VELAS_ADDRESS,
+      VOTE_PROXY_FACTORY_VELAS_ADDRESS,
+      ESM_ADDRESS_VELAS,
+      VOTE_DELEGATE_FACTORY_VELAS_ADDRESS,
+    ]),
+  ],
+  transformers: [
+    pollingTransformer(VOTING_CONTRACT_VELAS_ADDRESS),
+    pollingTransformer(SECOND_VOTING_CONTRACT_VELAS_ADDRESS),
+    mkrTransformer(MKR_VELAS_ADDRESS),
+    mkrBalanceTransformer(MKR_VELAS_ADDRESS),
+    dsChiefTransformer(DSCHIEF_VELAS_ADDRESS),
+    chiefBalanceTransformer(DSCHIEF_VELAS_ADDRESS),
+    voteProxyFactoryTransformer(VOTE_PROXY_FACTORY_VELAS_ADDRESS),
+    // dsChiefTransformer(DSCHIEF_12_ADDRESS, '_v1.2'),
+    // chiefBalanceTransformer(DSCHIEF_12_ADDRESS, '_v1.2'),
+    // voteProxyFactoryTransformer(VOTE_PROXY_FACTORY_12_ADDRESS, '_v1.2'),
+    esmTransformer(ESM_ADDRESS_VELAS),
+    voteDelegateFactoryTransformer(VOTE_DELEGATE_FACTORY_VELAS_ADDRESS),
+  ],
+  migrations: {
+    mkr: "./migrations",
+  },
+  api: {
+    whitelisting: {
+      enabled: false,
+    },
+    responseCaching: {
+      enabled: false,
+      duration: "15 seconds"
+    },
+  },
+};
+
+const velastestnet = {
+  startingBlock: 1152497,
+  extractors: [
+    ...makeRawLogExtractors([
+      VOTING_CONTRACT_VELASTESTNET_ADDRESS,
+      SECOND_VOTING_CONTRACT_VELASTESTNET_ADDRESS,
+      MKR_VELASTESTNET_ADDRESS,
+      DSCHIEF_VELASTESTNET_ADDRESS,
+      VOTE_PROXY_FACTORY_VELASTESTNET_ADDRESS,
+      ESM_ADDRESS_VELASTESTNET,
+      VOTE_DELEGATE_FACTORY_VELASTESTNET_ADDRESS,
+    ]),
+  ],
+  transformers: [
+    pollingTransformer(VOTING_CONTRACT_VELASTESTNET_ADDRESS),
+    pollingTransformer(SECOND_VOTING_CONTRACT_VELASTESTNET_ADDRESS),
+    mkrTransformer(MKR_VELASTESTNET_ADDRESS),
+    mkrBalanceTransformer(MKR_VELASTESTNET_ADDRESS),
+    dsChiefTransformer(DSCHIEF_VELASTESTNET_ADDRESS),
+    chiefBalanceTransformer(DSCHIEF_VELASTESTNET_ADDRESS),
+    voteProxyFactoryTransformer(VOTE_PROXY_FACTORY_VELASTESTNET_ADDRESS),
+    // dsChiefTransformer(DSCHIEF_12_ADDRESS, '_v1.2'),
+    // chiefBalanceTransformer(DSCHIEF_12_ADDRESS, '_v1.2'),
+    // voteProxyFactoryTransformer(VOTE_PROXY_FACTORY_12_ADDRESS, '_v1.2'),
+    esmTransformer(ESM_ADDRESS_VELASTESTNET),
+    voteDelegateFactoryTransformer(VOTE_DELEGATE_FACTORY_VELASTESTNET_ADDRESS),
+  ],
+  migrations: {
+    mkr: "./migrations",
+  },
+  api: {
+    whitelisting: {
+      enabled: false,
+    },
+    responseCaching: {
+      enabled: false,
+      duration: "15 seconds"
+    },
+  },
+};
+
 let config;
-if (process.env.VL_CHAIN_NAME === "mainnet") {
-  console.log("Using mainnet config");
-  config = mainnet;
-} else {
-  console.log("Using kovan config");
-  config = kovan;
+switch (process.env.VL_CHAIN_NAME) {
+  case "mainnet":
+    console.log("Using mainnet config");
+    config = mainnet;
+    break
+  case "kovan":
+    console.log("Using kovan config");
+    config = kovan;
+    break
+  case "velas":
+    console.log("Using velas config");
+    config = velas;
+    break
+  case "velastestnet":
+    console.log("Using velastestnet config");
+    config = velastestnet;
+    break
 }
+// if (process.env.VL_CHAIN_NAME === "mainnet") {
+//   console.log("Using mainnet config");
+//   config = mainnet;
+// } else {
+//   console.log("Using kovan config");
+//   config = kovan;
+// }
 
 module.exports.default = config;

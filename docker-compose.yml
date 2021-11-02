@@ -11,4 +11,4 @@ services:
       - POSTGRES_PORT=5432
       - POSTGRES_DB=database
     ports:
-      - "5433:5432"
+      - "5437:5432"
