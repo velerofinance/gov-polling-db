@@ -20,8 +20,8 @@ module.exports.VOTING_CONTRACT_VELAS_ADDRESS = '0xB4c3CB6BfDeb61cc9E30e872916b3d
 module.exports.VOTING_CONTRACT_VELASTESTNET_ADDRESS = '0x1DC2ECE0461D0a3F96400e0Ad8754023E49d4382';
 
 module.exports.default = address => ({
-  name: address === module.exports.VOTING_CONTRACT_ADDRESS ||
-    address === module.exports.VOTING_CONTRACT_KOVAN_ADDRESS
+  name: address === module.exports.VOTING_CONTRACT_VELAS_ADDRESS ||
+    address === module.exports.VOTING_CONTRACT_VELASTESTNET_ADDRESS
     ? `Polling_Transformer`
     : `Polling_Transformer_${address}`,
   dependencies: [getExtractorName(address)],
@@ -32,8 +32,8 @@ module.exports.default = address => ({
 
 const handlers = {
   async PollCreated(services, info) {
-    if (info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_KOVAN_ADDRESS.toLowerCase() &&
-      info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_ADDRESS.toLowerCase()) {
+    if (info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_VELASTESTNET_ADDRESS.toLowerCase() &&
+      info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_VELAS_ADDRESS.toLowerCase()) {
             logger.info(
         `Ignoring PollCreated event because ${info.event.address} is not the primary voting contract`,
       );
@@ -79,8 +79,8 @@ const handlers = {
   },
 
   async PollWithdrawn(services, info) {
-    if (info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_KOVAN_ADDRESS.toLowerCase() &&
-      info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_ADDRESS.toLowerCase()) {
+    if (info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_VELASTESTNET_ADDRESS.toLowerCase() &&
+      info.event.address.toLowerCase() !== module.exports.VOTING_CONTRACT_VELAS_ADDRESS.toLowerCase()) {
             logger.info(
         `Ignoring PollWithdrawn event because ${info.event.address} is not the primary voting contract`,
       );
